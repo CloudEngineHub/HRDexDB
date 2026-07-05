@@ -37,9 +37,6 @@ from hrdexdb_io import (
     transformed_mesh,
 )
 
-DEFAULT_MESH_BLENDER_ROOT = ""  # put the dataset path to the mesh_blender folder
-
-
 @dataclass(frozen=True)
 class EffectorMesh:
     vertices: np.ndarray
@@ -145,7 +142,7 @@ def distances_to_heat(distances: np.ndarray, clip_distance: float) -> np.ndarray
 def resolve_object_mesh(
     *,
     asset_root: Path,
-    mesh_blender_root: Path,
+    mesh_root: Path | None,
     object_name: str,
     object_mesh_path: Path | None,
     object_mesh_source: str,
@@ -156,13 +153,25 @@ def resolve_object_mesh(
             raise ExportError(f"object mesh not found: {path}")
         return path, "explicit"
 
-    viser_path = mesh_blender_root / object_name / f"{object_name}_viser.obj"
     asset_path = asset_root / "mesh" / object_name / f"{object_name}.obj"
-    candidates = (viser_path, asset_path) if object_mesh_source == "viser" else (asset_path, viser_path)
-    for path in candidates:
+    asset_viser_path = asset_root / "mesh" / object_name / f"{object_name}_viser.obj"
+    candidates: list[tuple[Path, str]] = []
+    if mesh_root is not None:
+        candidates.extend(
+            [
+                (mesh_root / object_name / f"{object_name}_viser.obj", "mesh_override"),
+                (mesh_root / object_name / f"{object_name}.obj", "mesh_override"),
+            ]
+        )
+    asset_candidates = [(asset_path, "asset"), (asset_viser_path, "asset")]
+    if object_mesh_source == "viser":
+        asset_candidates.reverse()
+    candidates.extend(asset_candidates)
+    for path, source in candidates:
         if path.is_file():
-            return path.resolve(), "viser" if path == viser_path else "asset"
-    raise ExportError(f"object mesh not found; tried {viser_path} and {asset_path}")
+            return path.resolve(), source
+    tried = ", ".join(str(path) for path, _source in candidates)
+    raise ExportError(f"object mesh not found; tried {tried}")
 
 
 def robot_effector_mesh_at_qpos(
@@ -211,7 +220,7 @@ def build_episode_heatmaps(
     dataset_root: Path,
     pose_root: Path,
     asset_root: Path,
-    mesh_blender_root: Path,
+    mesh_root: Path | None,
     hand: str,
     object_name: str,
     scene: str,
@@ -235,7 +244,7 @@ def build_episode_heatmaps(
 
     object_mesh_file, object_mesh_source_used = resolve_object_mesh(
         asset_root=asset_root,
-        mesh_blender_root=mesh_blender_root,
+        mesh_root=mesh_root,
         object_name=object_name,
         object_mesh_path=object_mesh_path,
         object_mesh_source=object_mesh_source,
@@ -403,14 +412,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--mesh",
         default=None,
-        help="required unless --object-mesh-path is set; put the dataset path to mesh_blender",
+        help="optional object mesh root override; defaults to <dataset-root>/assets/mesh",
     )
     parser.add_argument("--hand", default="human")
     parser.add_argument("--object", dest="object_name", default="apple")
     parser.add_argument("--scene", default="0")
     parser.add_argument("--output", type=Path, default=None)
     parser.add_argument("--object-mesh-path", type=Path, default=None)
-    parser.add_argument("--object-mesh-source", choices=("viser", "asset"), default="viser")
+    parser.add_argument("--object-mesh-source", choices=("viser", "asset"), default="asset")
     parser.add_argument("--object-pose-dir", type=Path, default=None)
     parser.add_argument("--frame-stride", type=int, default=1)
     parser.add_argument("--max-frames", type=int, default=None)
@@ -435,14 +444,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
         dataset_root = required_path(args.dataset_root, "--dataset-root")
-        mesh_blender_root = (
-            required_path(args.mesh, "--mesh")
-            if args.object_mesh_path is None
-            else Path("")
-        )
     except Exception as exc:
         print(f"[ERROR] {exc}", flush=True)
         return 1
+    mesh_root = Path(args.mesh).expanduser().resolve() if args.mesh else None
     pose_root = args.pose_root.expanduser().resolve() if args.pose_root else default_pose_root(dataset_root).resolve()
     asset_root = args.asset_root.expanduser().resolve() if args.asset_root else default_asset_root(dataset_root).resolve()
     output_path = args.output
@@ -460,7 +465,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             dataset_root=dataset_root,
             pose_root=pose_root,
             asset_root=asset_root,
-            mesh_blender_root=mesh_blender_root,
+            mesh_root=mesh_root,
             hand=args.hand,
             object_name=args.object_name,
             scene=args.scene,

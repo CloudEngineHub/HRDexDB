@@ -10,12 +10,15 @@ together when releasing this folder.
 
 ## Inputs
 
-- HRDexDB episode root under your local dataset path, for example
-  `"<put the dataset path>/inspire_f1/apple/0"`.
-- HRDexDB assets under the dataset `v0/assets` folder.
-- Object meshes from `"<put the dataset path to mesh_blender>/<object>/<object>_viser.obj"`
-  by default.
-- Object pose folders such as `sequence_refine_output/refined_world_poses`.
+- HRDexDB `v0` root. Use the directory that contains embodiment folders such
+  as `human/`, `inspire_f1/`, `allegro_v5/`, and `assets/`.
+- Episode folders under `"<put the dataset path>/inspire_f1/apple/0"`, where
+  `"<put the dataset path>"` is the `v0` root.
+- HRDexDB assets under `"<put the dataset path>/assets"`.
+- Object meshes from
+  `"<put the dataset path>/assets/mesh/<object>/<object>.obj"` by default.
+- Object pose folders inside each episode, such as `object_6d` or
+  `sequence_refine_output/refined_world_poses`.
 - MANO meshes for human episodes or robot qpos plus URDFs for robot episodes.
 
 ## Generate Heatmaps
@@ -23,10 +26,9 @@ together when releasing this folder.
 Example for the 326th frame of `inspire_f1/apple/0`:
 
 ```bash
-# Replace "" with your paths. Put the dataset path in --dataset-root.
+# Replace "" with the path to the HRDexDB v0 directory.
 python hrdexdb_contact_heatmaps/generate_contact_heatmaps.py \
   --dataset-root "" \
-  --mesh "" \
   --hand inspire_f1 \
   --object apple \
   --scene 0 \
@@ -48,6 +50,8 @@ Useful options:
 - `--frame-stride`: sample a full episode at a fixed stride.
 - `--max-frames`: cap the number of sampled frames.
 - `--distance-clip`: distance threshold in meters, default `0.02`.
+- `--mesh`: optional object mesh root override. By default, meshes are loaded
+  from `<dataset-root>/assets/mesh`.
 - `--robot-visual-scope hand`: use hand/finger visual meshes only.
 - `--robot-visual-scope all`: include arm visual meshes too.
 

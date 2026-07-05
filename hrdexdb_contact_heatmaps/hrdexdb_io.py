@@ -380,8 +380,8 @@ POSE_DIR_CANDIDATES = (
 def default_asset_root(dataset_root: Path) -> Path:
     candidates = [
         dataset_root / "assets",
-        dataset_root.parent / "v0" / "assets",
         dataset_root / "v0" / "assets",
+        dataset_root.parent / "v0" / "assets",
     ]
     for candidate in candidates:
         if candidate.is_dir():
@@ -390,8 +390,6 @@ def default_asset_root(dataset_root: Path) -> Path:
 
 
 def default_pose_root(dataset_root: Path) -> Path:
-    if dataset_root.name == "v0":
-        return dataset_root.parent
     return dataset_root
 
 
