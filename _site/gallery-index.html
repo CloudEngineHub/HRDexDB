@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HRDexDB</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #faf8f5;
+      --surface: #ffffff;
+      --surface-2: #f1ece5;
+      --border: #ece7e0;
+      --text: #2b2722;
+      --text-muted: #8a8178;
+      --accent: #e2603b;
+      --accent-hover: #b94728;
+      --radius: 8px;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      min-height: 53px;
+      padding: 12px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+
+    .nav-logo img {
+      display: block;
+      width: auto;
+      height: 30px;
+      max-width: min(42vw, 184px);
+      object-fit: contain;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      font-size: 0.95em;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text);
+    }
+
+    .dataset-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 8px 14px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.95em;
+      font-weight: 700;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .action-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .dataset-link:hover {
+      border-color: var(--accent);
+      color: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .hf-logo {
+      display: block;
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    .landing {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 53px);
+      padding: 48px 24px;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .landing-logo {
+      display: block;
+      width: min(82vw, 520px);
+      height: auto;
+      max-height: 162px;
+      object-fit: contain;
+    }
+
+    .landing > p {
+      max-width: 680px;
+      margin-bottom: 18px;
+      color: var(--text-muted);
+      font-size: 1.28em;
+      line-height: 1.55;
+    }
+
+    .landing-authors {
+      max-width: 940px;
+      color: var(--text);
+      font-size: 1.18em;
+      line-height: 1.75;
+    }
+
+    .landing-authors a {
+      color: var(--accent);
+    }
+
+    .landing-authors a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
+
+    .landing-affiliations {
+      max-width: 780px;
+      color: var(--text-muted);
+      font-size: 0.95em;
+      line-height: 1.7;
+    }
+
+    .landing-note {
+      margin-top: -10px;
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      font-size: 0.9em;
+    }
+
+    .landing-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 320px));
+      grid-auto-rows: 1fr;
+      gap: 24px;
+      width: min(100%, 680px);
+    }
+
+    .landing-card {
+      display: flex;
+      min-height: 184px;
+      height: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 28px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(88, 166, 255, 0.12), rgba(63, 185, 80, 0.06)),
+        var(--surface);
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .landing-card[href]:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .landing-card.disabled {
+      cursor: default;
+    }
+
+    .card-count {
+      margin-bottom: 6px;
+      color: var(--accent);
+      font-size: 2em;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .landing-card h2 {
+      margin-bottom: 8px;
+      font-size: 1.45em;
+      line-height: 1.2;
+    }
+
+    .landing-card p {
+      color: var(--text-muted);
+      font-size: 0.95em;
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        gap: 16px;
+        padding: 12px 16px;
+      }
+
+      .landing {
+        justify-content: flex-start;
+        padding-top: 64px;
+      }
+
+      .landing > p {
+        font-size: 1.08em;
+      }
+
+      .landing-authors {
+        font-size: 1.02em;
+      }
+
+      .landing-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-logo" href="gallery-index.html" aria-label="HRDexDB home">
+      <img src="static/image/hrdexdb_logo.png" alt="HRDexDB">
+    </a>
+    <a class="nav-link" href="./">Project Page</a>
+    <a class="nav-link" href="gallery.html">Objects</a>
+  </nav>
+
+  <main class="landing">
+    <h1>
+      <img class="landing-logo" src="static/image/hrdexdb_logo.png" alt="HRDexDB">
+    </h1>
+    <p>Paired human and robot dexterous grasping sequences across diverse everyday objects.</p>
+    <div class="landing-authors" aria-label="Authors">
+      <a href="https://jongbinlim.github.io/" target="_blank" rel="noreferrer">Jongbin Lim</a><sup>1</sup>*,
+      <a href="https://hahahataeyun.github.io/" target="_blank" rel="noreferrer">Taeyun Ha</a><sup>1</sup>*,
+      <a href="https://willi19.github.io/" target="_blank" rel="noreferrer">Mingi Choi</a><sup>1</sup>,
+      <a href="https://jlogkim.github.io/" target="_blank" rel="noreferrer">Jisoo Kim</a><sup>1</sup>,
+      <a href="https://bjkim95.github.io" target="_blank" rel="noreferrer">Byungjun Kim</a><sup>1</sup>,
+      <a href="https://sites.google.com/yonsei.ac.kr/subinjeon/home" target="_blank" rel="noreferrer">Subin Jeon</a><sup>1</sup>,
+      Kanghyeon Cho<sup>1</sup>,
+      Seongho Cha<sup>1</sup>,
+      <a href="https://jhugestar.github.io/" target="_blank" rel="noreferrer">Hanbyul Joo</a><sup>1,2</sup>&dagger;
+    </div>
+    <div class="landing-affiliations" aria-label="Affiliations">
+      <span><sup>1</sup>Seoul National University</span>,
+      <span><sup>2</sup>RLWRLD</span>
+    </div>
+    <div class="landing-note">* Equal contribution &nbsp; &dagger; Corresponding author</div>
+    <div class="action-links">
+      <a class="dataset-link" href="./">
+        <span>Project Page</span>
+      </a>
+      <a class="dataset-link" href="https://huggingface.co/datasets/HRDexDB/HRDexDB" target="_blank" rel="noreferrer">
+        <img class="hf-logo" src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="" aria-hidden="true">
+        <span>View Dataset on Hugging Face</span>
+      </a>
+    </div>
+    <div class="landing-cards">
+      <a class="landing-card" href="gallery.html">
+        <div class="card-count">98</div>
+        <h2>Objects</h2>
+        <p>Browse objects and paired grasp previews</p>
+      </a>
+      <div class="landing-card disabled" aria-disabled="true">
+        <div class="card-count">1477</div>
+        <h2>Sequences</h2>
+        <p>All human and robot sequences</p>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

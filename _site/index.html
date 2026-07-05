@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🤖 HRDexDB: A Paired Human-Robot Dataset for Cross-Embodiment Dexterous Grasping</title>
+  
+  <link rel="icon" type="image/x-icon" href="/HRDexDB/static/image/favicon.ico">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="/HRDexDB/static/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="/HRDexDB/static/css/index.css?v=1782876723">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="/HRDexDB/static/js/fontawesome.all.min.js"></script>
+  <script src="/HRDexDB/static/js/index.js?v=1782876723"></script>
+
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+        displayMath: [ ['$$', '$$'], ['\\[', '\\]'] ],
+        processEscapes: true, 
+        tags: 'all',
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+  <script
+    type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+  </script>
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Page navigation">
+  <div class="site-nav-inner">
+    <a class="site-nav-brand" href="/HRDexDB/">HRDexDB</a>
+    <div class="site-nav-links">
+      <a class="site-nav-link" href="#abstract">Abstract</a>
+      <a class="site-nav-link" href="#dataset">Overview</a>
+      <a class="site-nav-link" href="#full-video">Video</a>
+      <a class="site-nav-link" href="#contact">Contact</a>
+      <a class="site-nav-link" href="#bibtex">BibTeX</a>
+      
+      <a class="site-nav-link site-nav-paper" href="./static/pdf/hrdexdb.pdf" target="_blank">
+        <span class="icon">
+          <i class="fas fa-file-pdf"></i>
+        </span>
+        <span>Paper</span>
+      </a>
+      
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">🤖 HRDexDB: A Paired Human-Robot Dataset for Cross-Embodiment Dexterous Grasping</h1>
+          
+          <div class="is-size-5 publication-authors">
+            
+              <span class="author-block">
+                <a href="https://jongbinlim.github.io/" target="_blank">Jongbin Lim</a><sup>1</sup>*, 
+              </span>
+            
+              <span class="author-block">
+                <a href="https://hahahataeyun.github.io/" target="_blank">Taeyun Ha</a><sup>1</sup>*, 
+              </span>
+            
+              <span class="author-block">
+                <a href="https://willi19.github.io/" target="_blank">Mingi Choi</a><sup>1</sup>, 
+              </span>
+            
+              <span class="author-block">
+                <a href="https://jlogkim.github.io/" target="_blank">Jisoo Kim</a><sup>1</sup>, 
+              </span>
+            
+              <span class="author-block">
+                <a href="https://bjkim95.github.io" target="_blank">Byungjun Kim</a><sup>1</sup>, 
+              </span>
+            
+              <span class="author-block">
+                <a href="https://sites.google.com/yonsei.ac.kr/subinjeon/home" target="_blank">Subin Jeon</a><sup>1</sup>, 
+              </span>
+            
+              <span class="author-block">
+                Kanghyeon Cho<sup>1</sup>, 
+              </span>
+            
+              <span class="author-block">
+                Seongho Cha<sup>1</sup>, 
+              </span>
+            
+              <span class="author-block">
+                <a href="https://jhugestar.github.io/" target="_blank">Hanbyul Joo</a><sup>1,2</sup>&dagger;
+              </span>
+            
+          </div>
+          
+
+          
+          <div class="is-size-5 publication-affiliations">
+            
+              <span class="affiliation-block">
+                <sup>1</sup>Seoul National University, 
+              </span>
+            
+              <span class="affiliation-block">
+                <sup>2</sup>RLWRLD
+              </span>
+            
+          </div>
+          <div class="publication-contribution-note">* Equal contribution &nbsp; &dagger; Corresponding author</div>
+          
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              
+              <span class="link-block">
+                <a href="./static/pdf/hrdexdb.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              
+              <!-- arXiv Link. -->
+              
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2604.14944"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-alt"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              
+              <!-- Video Link. -->
+              
+              <!-- Code Link. -->
+              
+              <span class="link-block">
+                <a href="https://github.com/snuvclab/HRDexDB"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              
+              <!-- Dataset Link. -->
+              
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/HRDexDB/HRDexDB"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-database"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+              
+              <!-- Dataset Visualizer Link. -->
+              
+              <span class="link-block">
+                <a href="./gallery-index.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-images"></i>
+                  </span>
+                  <span>Dataset Visualizer</span>
+                </a>
+              </span>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+<div class="container is-max-desktop">
+
+<div class="content">
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+        <h2 class="subtitle has-text-centered">
+            <span class="tldr-label">TL;DR:</span>
+            <span class="tldr-text">A paired cross-embodiment dataset of high-fidelity <br />dexterous grasping sequences featuring both human and robotic hands</span>
+        </h2>
+    </div>
+</section>
+
+<div class="columns is-centered">
+    <div class="column is-full">
+        <img class="teaser-image" src="static/image/teaser_corl.png" alt="HRDexDB teaser image" />
+    </div>
+</div>
+
+<!-- Using HTML to center the abstract -->
+<div class="columns is-centered has-text-centered">
+    <div class="column is-full">
+        <h2 id="abstract">Abstract</h2>
+        <div class="content has-text-justified">
+We present <b>HRDexDB</b>, a paired cross-embodiment dexterous grasping dataset of high-fidelity dexterous grasping sequences featuring both human and diverse robotic hands. Unlike existing datasets, HRDexDB provides a comprehensive collection of grasping trajectories across human hands and multiple robot hand embodiments, spanning 100 diverse objects. Leveraging state-of-the-art vision methods and a dedicated multi-camera system, HRDexDB offers high-precision spatiotemporal 3D ground-truth motion for both the agent and the manipulated object. The dataset comprises 2.1K grasping trials, each enriched with synchronized visual and kinematic modalities, with contact-force signals available for tactile-enabled robotic hands. By providing closely aligned captures of human dexterity and robotic execution on the same target objects under comparable grasping motions, HRDexDB serves as a foundational benchmark for cross-embodiment dexterous manipulation.
+        </div>
+    </div>
+</div>
+
+<!-- > Note: This is an example of a Jekyll-based project website template: [Github link](https://github.com/shunzh/project_website).\
+> The following content is generated by ChatGPT. The figure is manually added. -->
+
+<h2 id="dataset">Dataset Overview</h2>
+
+<p><strong>HRDexDB</strong> is the first large-scale dataset featuring paired human and dexterous robotic hand manipulation.
+It provides over <strong>2.1K</strong> sequences across <strong>100</strong> diverse objects and <strong>5</strong> distinct embodiments, all captured by a fully synchronized 23-camera system.
+We provide detailed 3D annotations for every sequence. You can see a sample visualization of our dataset below.</p>
+
+<div class="dataset-stats" aria-label="HRDexDB dataset statistics">
+    <div class="dataset-stat">
+        <div class="dataset-stat-number">2.1K</div>
+        <div class="dataset-stat-label">sequences</div>
+    </div>
+    <div class="dataset-stat">
+        <div class="dataset-stat-number">100+</div>
+        <div class="dataset-stat-label">objects</div>
+    </div>
+    <div class="dataset-stat">
+        <div class="dataset-stat-number">5</div>
+        <div class="dataset-stat-label">embodiments</div>
+    </div>
+</div>
+
+<div class="dataset-video-tabs">
+    <input class="dataset-video-tab-input" type="radio" name="dataset-video-tab" id="dataset-video-human" checked="" />
+    <input class="dataset-video-tab-input" type="radio" name="dataset-video-tab" id="dataset-video-robot" />
+
+    <div class="dataset-video-tab-list" aria-label="Dataset overview videos">
+        <label class="dataset-video-tab" for="dataset-video-human">Human</label>
+        <label class="dataset-video-tab" for="dataset-video-robot">Robot</label>
+    </div>
+
+    <div class="dataset-video-panels">
+        <figure class="dataset-video-panel dataset-video-panel-human">
+            <div class="dataset-video-stage">
+                <video class="dataset-video" controls="" autoplay="" muted="" loop="" playsinline="" preload="auto" poster="./static/videos/human_grasping_poster.jpg">
+                    <source src="./static/videos/human_grasping.mp4" type="video/mp4" />
+                    <source src="./static/videos/human_grasping.webm" type="video/webm" />
+                    Your browser does not support the video tag.
+                </video>
+                <div class="dataset-video-caption">
+                    <p>High-fidelity human dexterous grasping sequences captured across diverse objects.</p>
+                </div>
+            </div>
+        </figure>
+
+        <figure class="dataset-video-panel dataset-video-panel-robot">
+            <div class="dataset-video-stage">
+                <video class="dataset-video" controls="" autoplay="" muted="" loop="" playsinline="" preload="auto" poster="./static/videos/robot_grasping_poster.jpg">
+                    <source src="./static/videos/robot_grasping.mp4" type="video/mp4" />
+                    <source src="./static/videos/robot_grasping.webm" type="video/webm" />
+                    Your browser does not support the video tag.
+                </video>
+                <div class="dataset-video-caption">
+                    <p>Paired robot hand executions recorded with synchronized visual and kinematic modalities.</p>
+                </div>
+            </div>
+        </figure>
+    </div>
+</div>
+
+<div class="dataset-extra-media">
+    <section class="dataset-media-block">
+        <h3 class="dataset-media-title">3D Annotations</h3>
+        <video class="dataset-video" controls="" autoplay="" muted="" loop="" playsinline="" preload="auto">
+            <source src="./static/videos/paired_annotations.mp4?v=web-h264-20260618" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        <div class="dataset-video-caption">
+            <p>Paired human and robot annotations visualized across synchronized views.</p>
+        </div>
+    </section>
+
+    <section class="dataset-media-block">
+        <h3 class="dataset-media-title">Contact Visualization</h3>
+        <img class="dataset-media-image" src="./static/image/contact_visualization.png" alt="Contact visualization for paired dexterous grasping" />
+        <div class="dataset-video-caption">
+            <p>Contact visualization highlighting interaction regions during grasping.</p>
+        </div>
+    </section>
+</div>
+
+<section class="dataset-media-block">
+    <h3 class="dataset-media-title">Tactile Signals</h3>
+    <p class="dataset-media-description">Unlike other existing robot datasets, HRDexDB provides rich <strong>tactile signals</strong> for the Inspire &amp; Allegro robotic hand series.</p>
+    <video class="dataset-video" controls="" autoplay="" muted="" loop="" playsinline="" preload="auto">
+        <source src="./static/videos/hrdex_realdex.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+    <div class="dataset-video-caption">
+        <p>Tactile sensing stream synchronized with the grasping sequence.</p>
+    </div>
+</section>
+
+<h2 id="capture-system">A Unified Multi-Modal Data Capture System</h2>
+<figure class="dataset-media-block">
+    <img class="dataset-media-image" src="./static/image/capture_system.png" alt="HRDexDB capture system" />
+</figure>
+
+<p>To construct HRDexDB, we developed a unified multi-modal capture platform. It features a dense rig of 23 synchronized cameras, integrated with real-time robot proprioception. This setup is specifically engineered to overcome severe occlusions during interaction with objects.</p>
+
+<h2 id="full-video">Full Video</h2>
+
+<figure class="dataset-media-block">
+    <video class="dataset-video" controls="" playsinline="" preload="metadata" poster="./static/videos/HRDexDB_poster.jpg">
+        <source src="./static/videos/HRDexDB_video_CoRL_reduced_h264.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+    </video>
+    <figcaption class="dataset-video-caption">
+        <p>Full HRDexDB overview video.</p>
+    </figcaption>
+</figure>
+
+<h2 id="contact">Contact</h2>
+
+<p>Send any comments or questions to <a href="https://jongbinlim.github.io/">Jongbin Lim</a>: <a href="mailto:whdqls0534@snu.ac.kr">whdqls0534@snu.ac.kr</a> or <a href="https://hahahataeyun.github.io/">Taeyun Ha</a>: <a href="mailto:taeyun012@snu.ac.kr">taeyun012@snu.ac.kr</a>.</p>
+
+<h2 id="bibtex">Citation</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@misc{lim2026hrdexdb,
+      title={HRDexDB: A Paired Human-Robot Dataset for Cross-Embodiment Dexterous Grasping}, 
+      author={Jongbin Lim and Taeyun Ha and Mingi Choi and Jisoo Kim and Byungjun Kim and Subin Jeon and Kanghyeon Cho and Seongho Cha and Hanbyul Joo},
+      year={2026},
+      eprint={2604.14944},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2604.14944}, 
+}
+</code></pre></div></div>
+
+</div>
+
+</div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and <a href="https://github.com/shunzh/project_website">the Jekyll fork</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
