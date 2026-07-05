@@ -397,12 +397,11 @@ def build_episode_heatmaps(
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dataset-root", type=Path, default=None, help="required; put the dataset path")
+    parser.add_argument("--dataset-root", default=None, help="required; put the dataset path")
     parser.add_argument("--pose-root", type=Path, default=None)
     parser.add_argument("--asset-root", type=Path, default=None)
     parser.add_argument(
-        "--mesh-blender-root",
-        type=Path,
+        "--mesh",
         default=None,
         help="required unless --object-mesh-path is set; put the dataset path to mesh_blender",
     )
@@ -437,7 +436,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         dataset_root = required_path(args.dataset_root, "--dataset-root")
         mesh_blender_root = (
-            required_path(args.mesh_blender_root, "--mesh-blender-root")
+            required_path(args.mesh, "--mesh")
             if args.object_mesh_path is None
             else Path("")
         )

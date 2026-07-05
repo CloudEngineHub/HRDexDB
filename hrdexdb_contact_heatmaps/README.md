@@ -26,7 +26,7 @@ Example for the 326th frame of `inspire_f1/apple/0`:
 # Replace "" with your paths. Put the dataset path in --dataset-root.
 python hrdexdb_contact_heatmaps/generate_contact_heatmaps.py \
   --dataset-root "" \
-  --mesh-blender-root "" \
+  --mesh "" \
   --hand inspire_f1 \
   --object apple \
   --scene 0 \
