@@ -12,6 +12,7 @@ Jongbin Lim<sup>1,*</sup> · Taeyun Ha<sup>1,*</sup> · Mingi Choi<sup>1</sup> �
 
 [📄 Paper](https://arxiv.org/abs/2604.14944) |
 [🌐 Project Page](https://snuvclab.github.io/HRDexDB/) |
+[🖼️ Dataset Visualizer](https://snuvclab.github.io/HRDexDB/gallery-index.html) |
 [📦 Dataset](https://huggingface.co/datasets/HRDexDB/HRDexDB)
 
 </div>
